@@ -186,6 +186,17 @@ gulp.task('build-nyu', function() {
     .pipe(gulp.dest('dist/nyu/css/'))
 });
 
+gulp.task('build-nyu-d3m', function() {
+  gulp.src(['themes/nyu-d3m/images/*'])
+    .pipe(gulp.dest('dist/nyu-d3m/images/'));
+
+  return gulp.src(['themes/nyu-d3m/css/*.scss'])
+    .pipe(buildBootstrap())
+    .pipe(gulp.dest('dist/nyu-d3m/css/'))
+    .pipe(minifyCss())
+    .pipe(gulp.dest('dist/nyu-d3m/css/'))
+});
+
 // nunjucks.configure({autoescape: true});
 
 gulp.task('nunjucks', function() {
@@ -253,12 +264,17 @@ gulp.task('nunjucks', function() {
     .pipe(nunjucks({data:{title:"nyu"}}))
     .pipe(gulp.dest('dist/nyu/'));
 
+  gulp.src('themes/nyu-d3m/*.html')
+    .pipe(nunjucks({data:{title:"nyu-d3m"}}))
+    .pipe(gulp.dest('dist/nyu-d3m/'));
+
   }
 );
 
 gulp.task('watch', ['default'], function() {
   gulp.watch(['themes/nyu/css/*.scss'], ['build-nyu']);
-  
+  gulp.watch(['themes/nyu-d3m/css/*.scss'], ['build-nyu-d3m']);
+
   gulp.watch(['themes/vibrant-sea/css/*.scss'], ['build-vibrant-sea']);
   gulp.watch(['themes/bubblegum/css/*.scss'], ['build-bubblegum']);
   gulp.watch(['themes/daydream/css/*.scss'], ['build-daydream']);
@@ -278,5 +294,5 @@ gulp.task('watch', ['default'], function() {
   gulp.watch(['nunjucks/*.html', 'themes/**/*.html'], ['nunjucks']);
 });
 
-gulp.task('default', ['build-nyu', 'build-neon-glow', 'build-executive-suite', 'build-good-news', 'build-growth', 'build-harbor', 'build-hello-world', 'build-pleasant', 'build-retro', 'build-wizardry', 'build-charming', 'build-daydream', 'build-bubblegum', 'build-business-tycoon', 'build-vibrant-sea', 'nunjucks'], function() {
+gulp.task('default', ['build-nyu', 'build-nyu-d3m', 'build-neon-glow', 'build-executive-suite', 'build-good-news', 'build-growth', 'build-harbor', 'build-hello-world', 'build-pleasant', 'build-retro', 'build-wizardry', 'build-charming', 'build-daydream', 'build-bubblegum', 'build-business-tycoon', 'build-vibrant-sea', 'nunjucks'], function() {
 });
