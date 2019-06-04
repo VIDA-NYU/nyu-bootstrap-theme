@@ -176,6 +176,9 @@ gulp.task('build-neon-glow', function() {
 });
 
 gulp.task('build-nyu', function() {
+  gulp.src(['themes/nyu/images/*'])
+    .pipe(gulp.dest('dist/nyu/images/'));
+
   return gulp.src(['themes/nyu/css/*.scss'])
     .pipe(buildBootstrap())
     .pipe(gulp.dest('dist/nyu/css/'))
